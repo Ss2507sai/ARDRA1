@@ -1,273 +1,750 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2685.2">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ardra Dental Clinic - Invoice System</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background-color: #f9fafb; padding: 20px; }
+        .container { max-width: 1000px; margin: 0 auto; background: white; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-radius: 8px; overflow: hidden; }
+        .header { background: linear-gradient(to right, #9333ea, #7e22ce); color: white; padding: 30px; }
+        .header-content { display: flex; justify-content: space-between; align-items: start; }
+        .clinic-info h1 { font-size: 32px; margin-bottom: 8px; }
+        .clinic-info p { color: #e9d5ff; font-size: 14px; line-height: 1.6; }
+        .header-right { text-align: right; }
+        .action-buttons { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+        .btn { padding: 10px 20px; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 14px; }
+        .btn-primary { background: white; color: #9333ea; }
+        .btn-primary:hover { background: #faf5ff; }
+        .btn-success { background: #16a34a; color: white; }
+        .btn-success:hover { background: #15803d; }
+        .btn-info { background: #0891b2; color: white; }
+        .btn-info:hover { background: #0e7490; }
+        .invoice-meta { background: white; color: #9333ea; padding: 8px 16px; border-radius: 6px; font-size: 14px; font-weight: 600; margin-top: 10px; }
+        .search-bar { background: #faf5ff; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
+        .search-bar h3 { color: #7e22ce; margin-bottom: 12px; }
+        .search-inputs { display: flex; gap: 12px; align-items: end; }
+        .search-inputs input { flex: 1; padding: 10px 12px; border: 2px solid #9333ea; border-radius: 6px; font-size: 14px; }
+        .search-inputs button { padding: 10px 24px; background: #9333ea; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; }
+        .search-inputs button:hover { background: #7e22ce; }
+        .saved-invoices-list { max-height: 200px; overflow-y: auto; margin-top: 12px; }
+        .invoice-item { background: white; padding: 12px; border-radius: 6px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #e5e7eb; cursor: pointer; }
+        .invoice-item:hover { background: #f9fafb; border-color: #9333ea; }
+        .invoice-item-info { flex: 1; }
+        .invoice-item-info strong { color: #9333ea; }
+        .invoice-item-actions button { padding: 6px 12px; margin-left: 8px; border: none; border-radius: 4px; cursor: pointer; font-size: 12px; }
+        .btn-load { background: #0891b2; color: white; }
+        .btn-delete { background: #dc2626; color: white; }
+        .content { padding: 30px; }
+        .section { margin-bottom: 30px; }
+        .section-title { font-size: 20px; font-weight: bold; color: #1f2937; border-bottom: 3px solid #9333ea; padding-bottom: 8px; margin-bottom: 20px; }
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+        .form-group { margin-bottom: 16px; }
+        .form-group.full { grid-column: span 2; }
+        .form-group.full-3 { grid-column: span 3; }
+        label { display: block; font-size: 14px; font-weight: 500; color: #374151; margin-bottom: 4px; }
+        input, select, textarea { width: 100%; padding: 10px 12px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 14px; font-family: Arial, sans-serif; }
+        input:focus, select:focus, textarea:focus { outline: none; border-color: #9333ea; box-shadow: 0 0 0 3px rgba(147, 51, 234, 0.1); }
+        table { width: 100%; border-collapse: collapse; margin-top: 16px; }
+        thead { background-color: #f3f4f6; }
+        th { padding: 12px; text-align: left; font-size: 14px; font-weight: 600; color: #374151; }
+        th.center { text-align: center; }
+        th.right { text-align: right; }
+        td { padding: 12px; border-bottom: 1px solid #e5e7eb; }
+        td input, td select { padding: 6px 8px; }
+        .add-btn { background: #9333ea; color: white; padding: 8px 16px; border: none; border-radius: 6px; cursor: pointer; font-size: 14px; }
+        .add-btn:hover { background: #7e22ce; }
+        .delete-btn { background: none; border: none; color: #dc2626; cursor: pointer; padding: 4px; font-size: 14px; }
+        .delete-btn:hover { color: #991b1b; }
+        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+        .total-row { background: #f9fafb; font-weight: bold; }
+        .total-row td { padding: 16px 12px; font-size: 16px; }
+        .purple-text { color: #9333ea; }
+        .summary { background: #f3f4f6; padding: 24px; border-radius: 8px; border: 2px solid #9333ea; }
+        .summary-row { display: flex; justify-content: space-between; padding: 10px 0; font-size: 16px; border-bottom: 1px solid #d1d5db; }
+        .summary-row:last-child { border-bottom: none; }
+        .summary-row.total { border-top: 3px solid #9333ea; padding-top: 16px; margin-top: 12px; font-size: 20px; font-weight: bold; }
+        .summary-row.subtotal { font-weight: 600; }
+        .green-text { color: #16a34a; }
+        .red-text { color: #dc2626; }
+        .orange-text { color: #ea580c; }
+        .discount-section { background: #fef3c7; padding: 16px; border-radius: 6px; margin-bottom: 20px; }
+        .discount-options { display: flex; gap: 16px; align-items: end; }
+        .discount-options > div { flex: 1; }
+        .status-badge { display: inline-block; padding: 6px 12px; border-radius: 6px; font-size: 12px; font-weight: 600; }
+        .status-paid { background: #dcfce7; color: #166534; }
+        .status-pending { background: #fee2e2; color: #991b1b; }
+        .status-partial { background: #fef3c7; color: #92400e; }
+        .footer { margin-top: 40px; padding-top: 24px; border-top: 2px solid #e5e7eb; text-align: center; color: #6b7280; font-size: 14px; }
+        .footer-signature { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 60px; text-align: center; }
+        .signature-box { border-top: 2px solid #374151; padding-top: 10px; font-weight: 600; color: #374151; }
+        .alert { padding: 12px 16px; border-radius: 6px; margin-bottom: 16px; font-size: 14px; }
+        .alert-success { background: #dcfce7; color: #166534; border: 1px solid #16a34a; }
+        .alert-error { background: #fee2e2; color: #991b1b; border: 1px solid #dc2626; }
+        .alert-info { background: #dbeafe; color: #1e40af; border: 1px solid #3b82f6; }
+        @media print { 
+            body { background: white; padding: 0; } 
+            .no-print { display: none !important; } 
+            .container { box-shadow: none; } 
+            input, select, textarea { border: none !important; padding: 2px 0 !important; background: transparent !important; }
+            .header { background: linear-gradient(to right, #9333ea, #7e22ce) !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .summary { border: 2px solid #9333ea !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .section-title { border-bottom: 3px solid #9333ea !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        }
+    </style>
 </head>
 <body>
-<p class="p1">&lt;!DOCTYPE html&gt;</p>
-<p class="p1">&lt;html lang="en"&gt;</p>
-<p class="p1">&lt;head&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;Ardra Dental Clinic - Invoice System&lt;/title&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;style&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>* { margin: 0; padding: 0; box-sizing: border-box; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>body { font-family: Arial, sans-serif; background-color: #f9fafb; padding: 20px; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.container { max-width: 900px; margin: 0 auto; background: white; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-radius: 8px; overflow: hidden; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.header { background: linear-gradient(to right, #9333ea, #7e22ce); color: white; padding: 30px; display: flex; justify-content: space-between; align-items: start; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.header h1 { font-size: 28px; margin-bottom: 8px; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.header p { color: #e9d5ff; font-size: 14px; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.print-btn { background: white; color: #9333ea; padding: 10px 20px; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.print-btn:hover { background: #faf5ff; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.content { padding: 30px; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.section { margin-bottom: 30px; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.section-title { font-size: 20px; font-weight: bold; color: #1f2937; border-bottom: 3px solid #9333ea; padding-bottom: 8px; margin-bottom: 20px; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.form-group { margin-bottom: 16px; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.form-group.full { grid-column: span 2; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>label { display: block; font-size: 14px; font-weight: 500; color: #374151; margin-bottom: 4px; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>input, select { width: 100%; padding: 10px 12px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 14px; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>input:focus, select:focus { outline: none; border-color: #9333ea; box-shadow: 0 0 0 3px rgba(147, 51, 234, 0.1); }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>table { width: 100%; border-collapse: collapse; margin-top: 16px; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>thead { background-color: #f3f4f6; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>th { padding: 12px; text-align: left; font-size: 14px; font-weight: 600; color: #374151; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>th.center { text-align: center; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>th.right { text-align: right; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>td { padding: 12px; border-bottom: 1px solid #e5e7eb; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>td input, td select { padding: 6px 8px; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.add-btn { background: #9333ea; color: white; padding: 8px 16px; border: none; border-radius: 6px; cursor: pointer; font-size: 14px; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.add-btn:hover { background: #7e22ce; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.delete-btn { background: none; border: none; color: #dc2626; cursor: pointer; padding: 4px; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.delete-btn:hover { color: #991b1b; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.total-row { background: #f9fafb; font-weight: bold; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.total-row td { padding: 16px 12px; font-size: 16px; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.purple-text { color: #9333ea; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.summary { background: #f9fafb; padding: 20px; border-radius: 8px; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.summary-row { display: flex; justify-content: space-between; padding: 8px 0; font-size: 16px; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.summary-row.total { border-top: 2px solid #d1d5db; padding-top: 12px; margin-top: 8px; font-size: 18px; font-weight: bold; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.green-text { color: #16a34a; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.red-text { color: #dc2626; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.footer { margin-top: 40px; padding-top: 24px; border-top: 1px solid #e5e7eb; text-align: center; color: #6b7280; font-size: 14px; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>@media print { body { background: white; padding: 0; } .no-print { display: none !important; } .container { box-shadow: none; } input, select { border: none !important; padding: 2px 0 !important; } }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</p>
-<p class="p1">&lt;/head&gt;</p>
-<p class="p1">&lt;body&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="container"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="header"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;h1&gt;ARDRA DENTAL CLINIC&lt;/h1&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p&gt;https://ardradentalclinics.com/&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;button class="print-btn no-print" onclick="window.print()"&gt;Print Invoice&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="content"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="section"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="grid-2"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="form-group"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;label&gt;Invoice Number&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;input type="text" id="invoiceNumber"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="form-group"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;label&gt;Date&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;input type="date" id="invoiceDate"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="section"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;h2 class="section-title"&gt;Patient Details&lt;/h2&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="grid-2"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="form-group"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;label&gt;Patient Name&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;input type="text" id="patientName"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="form-group"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;label&gt;Guardian Name&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;input type="text" id="guardianName"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="form-group"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;label&gt;Contact Number&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;input type="tel" id="contactNo"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="form-group"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;label&gt;Email&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;input type="email" id="email"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="form-group full"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;label&gt;Address&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;input type="text" id="address"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="form-group"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;label&gt;City&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;input type="text" id="city"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="form-group"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;label&gt;State&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;input type="text" id="state"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="section"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="section-header"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;h2 class="section-title" style="margin: 0;"&gt;Treatment Details&lt;/h2&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;button class="add-btn no-print" onclick="addTreatment()"&gt;Add Treatment&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;table&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;thead&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;th&gt;Treatment&lt;/th&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;th class="center"&gt;Quantity&lt;/th&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;th class="right"&gt;Rate (₹)&lt;/th&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;th class="right"&gt;Amount (₹)&lt;/th&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;th class="center no-print"&gt;Action&lt;/th&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/thead&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;tbody id="treatmentTable"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;td&gt;&lt;input type="text" placeholder="e.g., Root Canal" class="treatment-name" style="width: 100%;"&gt;&lt;/td&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;td style="text-align: center;"&gt;&lt;input type="number" value="1" min="1" class="treatment-qty" onchange="calculateAmount(this)" style="width: 80px; text-align: center;"&gt;&lt;/td&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;td style="text-align: right;"&gt;&lt;input type="number" value="0" min="0" class="treatment-rate" onchange="calculateAmount(this)" style="width: 100px; text-align: right;"&gt;&lt;/td&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;td style="text-align: right; font-weight: 600;" class="treatment-amount"&gt;₹0&lt;/td&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;td style="text-align: center;" class="no-print"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;button class="delete-btn" onclick="removeTreatment(this)"&gt;Delete&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/td&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/tbody&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;tfoot&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;tr class="total-row"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;td colspan="3" style="text-align: right;"&gt;Total Amount:&lt;/td&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;td style="text-align: right;" class="purple-text" id="totalAmount"&gt;₹0&lt;/td&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;td class="no-print"&gt;&lt;/td&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/tfoot&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/table&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="section"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="section-header"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;h2 class="section-title" style="margin: 0;"&gt;Payment Details&lt;/h2&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;button class="add-btn no-print" onclick="addPayment()"&gt;Add Payment&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;table&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;thead&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;th&gt;Payment Method&lt;/th&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;th&gt;Reference ID&lt;/th&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;th class="right"&gt;Amount (₹)&lt;/th&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;th class="center no-print"&gt;Action&lt;/th&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/thead&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;tbody id="paymentTable"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;td&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;select class="payment-method" style="width: 100%;"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;option value=""&gt;Select Method&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;option value="Cash"&gt;Cash&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;option value="Card"&gt;Card&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;option value="UPI"&gt;UPI&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;option value="Bank Transfer"&gt;Bank Transfer&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;option value="Cheque"&gt;Cheque&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/select&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/td&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;td&gt;&lt;input type="text" placeholder="Reference ID" class="payment-ref" style="width: 100%;"&gt;&lt;/td&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;td style="text-align: right;"&gt;&lt;input type="number" value="0" min="0" class="payment-amount" onchange="calculateTotals()" style="width: 100px; text-align: right;"&gt;&lt;/td&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;td style="text-align: center;" class="no-print"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;button class="delete-btn" onclick="removePayment(this)"&gt;Delete&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/td&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/tbody&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/table&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="summary"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="summary-row"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span style="font-weight: 600;"&gt;Total Amount:&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span style="font-weight: bold;" id="summaryTotal"&gt;₹0&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="summary-row"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span style="font-weight: 600;"&gt;Amount Paid:&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span style="font-weight: bold;" class="green-text" id="summaryPaid"&gt;₹0&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="summary-row total"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span&gt;Balance Due:&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span id="summaryBalance"&gt;₹0&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="footer"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p&gt;Thank you for choosing Ardra Dental Clinic!&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p style="margin-top: 8px;"&gt;For queries: https://ardradentalclinics.com/&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;script&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>document.getElementById('invoiceNumber').value = 'INV-' + Date.now();</p>
-<p class="p1"><span class="Apple-converted-space">        </span>document.getElementById('invoiceDate').value = new Date().toISOString().split('T')[0];</p>
-<p class="p1"><span class="Apple-converted-space">        </span>function calculateAmount(element) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const row = element.closest('tr');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const qty = parseFloat(row.querySelector('.treatment-qty').value) || 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const rate = parseFloat(row.querySelector('.treatment-rate').value) || 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const amount = qty * rate;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>row.querySelector('.treatment-amount').textContent = '₹' + amount.toLocaleString('en-IN');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>calculateTotals();</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>function calculateTotals() {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>let total = 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.querySelectorAll('#treatmentTable tr').forEach(row =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>const qty = parseFloat(row.querySelector('.treatment-qty')?.value) || 0;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>const rate = parseFloat(row.querySelector('.treatment-rate')?.value) || 0;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>total += qty * rate;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>});</p>
-<p class="p1"><span class="Apple-converted-space">            </span>let paid = 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.querySelectorAll('#paymentTable tr').forEach(row =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>const amount = parseFloat(row.querySelector('.payment-amount')?.value) || 0;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>paid += amount;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>});</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const balance = total - paid;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('totalAmount').textContent = '₹' + total.toLocaleString('en-IN');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('summaryTotal').textContent = '₹' + total.toLocaleString('en-IN');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('summaryPaid').textContent = '₹' + paid.toLocaleString('en-IN');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const balanceElement = document.getElementById('summaryBalance');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>balanceElement.textContent = '₹' + balance.toLocaleString('en-IN');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>balanceElement.className = balance &gt; 0 ? 'red-text' : 'green-text';</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>function addTreatment() {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const table = document.getElementById('treatmentTable');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const newRow = table.rows[0].cloneNode(true);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>newRow.querySelector('.treatment-name').value = '';</p>
-<p class="p1"><span class="Apple-converted-space">            </span>newRow.querySelector('.treatment-qty').value = '1';</p>
-<p class="p1"><span class="Apple-converted-space">            </span>newRow.querySelector('.treatment-rate').value = '0';</p>
-<p class="p1"><span class="Apple-converted-space">            </span>newRow.querySelector('.treatment-amount').textContent = '₹0';</p>
-<p class="p1"><span class="Apple-converted-space">            </span>table.appendChild(newRow);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>function removeTreatment(button) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const table = document.getElementById('treatmentTable');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (table.rows.length &gt; 1) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>button.closest('tr').remove();</p>
-<p class="p1"><span class="Apple-converted-space">                </span>calculateTotals();</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>function addPayment() {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const table = document.getElementById('paymentTable');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const newRow = table.rows[0].cloneNode(true);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>newRow.querySelector('.payment-method').value = '';</p>
-<p class="p1"><span class="Apple-converted-space">            </span>newRow.querySelector('.payment-ref').value = '';</p>
-<p class="p1"><span class="Apple-converted-space">            </span>newRow.querySelector('.payment-amount').value = '0';</p>
-<p class="p1"><span class="Apple-converted-space">            </span>table.appendChild(newRow);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>function removePayment(button) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const table = document.getElementById('paymentTable');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (table.rows.length &gt; 1) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>button.closest('tr').remove();</p>
-<p class="p1"><span class="Apple-converted-space">                </span>calculateTotals();</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</p>
-<p class="p1">&lt;/body&gt;</p>
-<p class="p1">&lt;/html&gt;</p>
+    <div class="container">
+        <div class="header">
+            <div class="header-content">
+                <div class="clinic-info">
+                    <h1>ARDRA DENTAL CLINIC</h1>
+                    <p>📍 Address: [Your Clinic Address Here]</p>
+                    <p>📞 Phone: [Your Phone Number]</p>
+                    <p>📧 Email: contact@ardradentalclinics.com</p>
+                    <p>🌐 https://ardradentalclinics.com/</p>
+                </div>
+                <div class="header-right">
+                    <div class="action-buttons">
+                        <button class="btn btn-success" onclick="saveInvoice()">💾 Save Invoice</button>
+                        <button class="btn btn-info" onclick="newInvoice()">📄 New Invoice</button>
+                        <button class="btn btn-primary" onclick="window.print()">🖨️ Print</button>
+                    </div>
+                    <div class="invoice-meta">
+                        <div>Invoice #: <span id="displayInvoiceNo">INV-001</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content">
+            <!-- Alert Messages -->
+            <div id="alertContainer"></div>
+
+            <!-- Search & Saved Invoices -->
+            <div class="search-bar no-print">
+                <h3>🔍 Search Invoice</h3>
+                <div class="search-inputs">
+                    <input type="text" id="searchInvoice" placeholder="Enter Invoice Number (e.g., INV-1763317441673)" onkeypress="if(event.key==='Enter') searchInvoiceByNumber()">
+                    <button onclick="searchInvoiceByNumber()">Search</button>
+                    <button onclick="toggleSavedInvoices()" style="background: #7e22ce;">View All Saved</button>
+                </div>
+                <div id="savedInvoicesList" class="saved-invoices-list" style="display: none;"></div>
+            </div>
+
+            <!-- Invoice & Doctor Details -->
+            <div class="section">
+                <div class="grid-3">
+                    <div class="form-group">
+                        <label>Invoice Number</label>
+                        <input type="text" id="invoiceNumber" onchange="updateDisplayInvoice()">
+                    </div>
+                    <div class="form-group">
+                        <label>Date</label>
+                        <input type="date" id="invoiceDate">
+                    </div>
+                    <div class="form-group">
+                        <label>Doctor/Dentist Name</label>
+                        <input type="text" id="doctorName" placeholder="Dr. Name">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Patient Details -->
+            <div class="section">
+                <h2 class="section-title">Patient Details</h2>
+                <div class="grid-3">
+                    <div class="form-group">
+                        <label>Patient ID</label>
+                        <input type="text" id="patientId" placeholder="P-001">
+                    </div>
+                    <div class="form-group">
+                        <label>Patient Name *</label>
+                        <input type="text" id="patientName" placeholder="Full Name">
+                    </div>
+                    <div class="form-group">
+                        <label>Age</label>
+                        <input type="number" id="patientAge" placeholder="Age">
+                    </div>
+                    <div class="form-group">
+                        <label>Guardian Name</label>
+                        <input type="text" id="guardianName" placeholder="Guardian/Parent Name">
+                    </div>
+                    <div class="form-group">
+                        <label>Contact Number *</label>
+                        <input type="tel" id="contactNo" placeholder="+91-XXXXXXXXXX">
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="email" placeholder="email@example.com">
+                    </div>
+                    <div class="form-group full-3">
+                        <label>Address</label>
+                        <textarea id="address" rows="2" placeholder="Full Address"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>City</label>
+                        <input type="text" id="city" placeholder="City">
+                    </div>
+                    <div class="form-group">
+                        <label>State</label>
+                        <input type="text" id="state" placeholder="State">
+                    </div>
+                    <div class="form-group">
+                        <label>Pincode</label>
+                        <input type="text" id="pincode" placeholder="000000">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Treatment Details -->
+            <div class="section">
+                <div class="section-header">
+                    <h2 class="section-title" style="margin: 0;">Treatment Details</h2>
+                    <button class="add-btn no-print" onclick="addTreatment()">➕ Add Treatment</button>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 5%;">#</th>
+                            <th style="width: 40%;">Treatment/Procedure</th>
+                            <th class="center" style="width: 10%;">Qty</th>
+                            <th class="right" style="width: 15%;">Rate (₹)</th>
+                            <th class="right" style="width: 15%;">Amount (₹)</th>
+                            <th class="center no-print" style="width: 10%;">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="treatmentTable">
+                        <tr>
+                            <td style="text-align: center;">1</td>
+                            <td><input type="text" placeholder="e.g., Root Canal Treatment" class="treatment-name" style="width: 100%;"></td>
+                            <td style="text-align: center;"><input type="number" value="1" min="1" class="treatment-qty" onchange="calculateAmount(this)" style="width: 60px; text-align: center;"></td>
+                            <td style="text-align: right;"><input type="number" value="0" min="0" step="0.01" class="treatment-rate" onchange="calculateAmount(this)" style="width: 100px; text-align: right;"></td>
+                            <td style="text-align: right; font-weight: 600;" class="treatment-amount">₹0.00</td>
+                            <td style="text-align: center;" class="no-print">
+                                <button class="delete-btn" onclick="removeTreatment(this)">🗑️ Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr class="total-row">
+                            <td colspan="4" style="text-align: right; font-size: 16px;">Subtotal:</td>
+                            <td style="text-align: right; font-size: 16px;" class="purple-text" id="subtotalAmount">₹0.00</td>
+                            <td class="no-print"></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+            <!-- Discount Section -->
+            <div class="discount-section no-print">
+                <h3 style="margin-bottom: 12px; color: #92400e;">💰 Discount</h3>
+                <div class="discount-options">
+                    <div>
+                        <label>Discount Type</label>
+                        <select id="discountType" onchange="calculateTotals()">
+                            <option value="none">No Discount</option>
+                            <option value="percentage">Percentage (%)</option>
+                            <option value="fixed">Fixed Amount (₹)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>Discount Value</label>
+                        <input type="number" id="discountValue" value="0" min="0" step="0.01" onchange="calculateTotals()" placeholder="0">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tax/GST Section -->
+            <div class="section">
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>GST/Tax (%)</label>
+                        <input type="number" id="taxRate" value="18" min="0" max="100" step="0.01" onchange="calculateTotals()" placeholder="18">
+                    </div>
+                    <div class="form-group">
+                        <label>Tax Amount (Auto-calculated)</label>
+                        <input type="text" id="taxAmount" value="₹0.00" readonly style="background: #f3f4f6;">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Payment Details -->
+            <div class="section">
+                <div class="section-header">
+                    <h2 class="section-title" style="margin: 0;">Payment Details</h2>
+                    <button class="add-btn no-print" onclick="addPayment()">➕ Add Payment</button>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 25%;">Payment Method</th>
+                            <th style="width: 30%;">Reference/Transaction ID</th>
+                            <th style="width: 15%;">Date</th>
+                            <th class="right" style="width: 15%;">Amount (₹)</th>
+                            <th class="center no-print" style="width: 10%;">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="paymentTable">
+                        <tr>
+                            <td>
+                                <select class="payment-method" style="width: 100%;">
+                                    <option value="">Select Method</option>
+                                    <option value="Cash">Cash</option>
+                                    <option value="Card">Card</option>
+                                    <option value="UPI">UPI</option>
+                                    <option value="Bank Transfer">Bank Transfer</option>
+                                    <option value="Cheque">Cheque</option>
+                                </select>
+                            </td>
+                            <td><input type="text" placeholder="Reference ID" class="payment-ref" style="width: 100%;"></td>
+                            <td><input type="date" class="payment-date" style="width: 100%;"></td>
+                            <td style="text-align: right;"><input type="number" value="0" min="0" step="0.01" class="payment-amount" onchange="calculateTotals()" style="width: 100px; text-align: right;"></td>
+                            <td style="text-align: center;" class="no-print">
+                                <button class="delete-btn" onclick="removePayment(this)">🗑️ Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Summary -->
+            <div class="summary">
+                <div class="summary-row subtotal">
+                    <span>Subtotal:</span>
+                    <span id="summarySubtotal">₹0.00</span>
+                </div>
+                <div class="summary-row" id="discountRow" style="display: none;">
+                    <span>Discount:</span>
+                    <span class="orange-text" id="summaryDiscount">- ₹0.00</span>
+                </div>
+                <div class="summary-row">
+                    <span>After Discount:</span>
+                    <span id="summaryAfterDiscount">₹0.00</span>
+                </div>
+                <div class="summary-row">
+                    <span>Tax/GST (<span id="summaryTaxRate">18</span>%):</span>
+                    <span id="summaryTax">₹0.00</span>
+                </div>
+                <div class="summary-row subtotal">
+                    <span style="font-size: 18px;">Total Amount:</span>
+                    <span style="font-size: 18px; font-weight: bold;" id="summaryTotal">₹0.00</span>
+                </div>
+                <div class="summary-row">
+                    <span>Amount Paid:</span>
+                    <span class="green-text" style="font-weight: bold;" id="summaryPaid">₹0.00</span>
+                </div>
+                <div class="summary-row total">
+                    <span>Balance Due:</span>
+                    <span id="summaryBalance">₹0.00</span>
+                </div>
+                <div class="summary-row" style="border: none; padding-top: 16px;">
+                    <span style="font-weight: 600;">Payment Status:</span>
+                    <span id="paymentStatus" class="status-badge status-pending">PENDING</span>
+                </div>
+            </div>
+
+            <!-- Notes Section -->
+            <div class="section">
+                <h2 class="section-title">Notes/Instructions</h2>
+                <textarea id="notes" rows="3" placeholder="Additional notes, instructions, or terms & conditions..." style="width: 100%;"></textarea>
+            </div>
+
+            <!-- Signature -->
+            <div class="footer-signature">
+                <div class="signature-box">
+                    <div style="margin-top: 40px;">Patient/Guardian Signature</div>
+                </div>
+                <div class="signature-box">
+                    <div style="margin-top: 40px;">Authorized Signature</div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="footer">
+                <p style="font-weight: 600; color: #374151; font-size: 16px;">Thank you for choosing Ardra Dental Clinic!</p>
+                <p style="margin-top: 8px;">For queries: 📞 [Phone] | 📧 contact@ardradentalclinics.com | 🌐 https://ardradentalclinics.com/</p>
+                <p style="margin-top: 12px; font-size: 12px; color: #9ca3af;">This is a computer-generated invoice and does not require a signature.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize
+        let currentInvoiceId = null;
+        initializeInvoice();
+
+        function initializeInvoice() {
+            const invoiceNo = 'INV-' + Date.now();
+            document.getElementById('invoiceNumber').value = invoiceNo;
+            document.getElementById('displayInvoiceNo').textContent = invoiceNo;
+            document.getElementById('invoiceDate').value = new Date().toISOString().split('T')[0];
+            document.querySelectorAll('.payment-date').forEach(el => {
+                el.value = new Date().toISOString().split('T')[0];
+            });
+            currentInvoiceId = invoiceNo;
+        }
+
+        function showAlert(message, type = 'success') {
+            const container = document.getElementById('alertContainer');
+            const alert = document.createElement('div');
+            alert.className = `alert alert-${type}`;
+            alert.textContent = message;
+            container.innerHTML = '';
+            container.appendChild(alert);
+            setTimeout(() => alert.remove(), 5000);
+        }
+
+        function updateDisplayInvoice() {
+            const invoiceNo = document.getElementById('invoiceNumber').value;
+            document.getElementById('displayInvoiceNo').textContent = invoiceNo;
+            currentInvoiceId = invoiceNo;
+        }
+
+        // Save Invoice
+        function saveInvoice() {
+            const invoiceData = {
+                id: currentInvoiceId,
+                invoiceNumber: document.getElementById('invoiceNumber').value,
+                date: document.getElementById('invoiceDate').value,
+                doctorName: document.getElementById('doctorName').value,
+                patient: {
+                    id: document.getElementById('patientId').value,
+                    name: document.getElementById('patientName').value,
+                    age: document.getElementById('patientAge').value,
+                    guardian: document.getElementById('guardianName').value,
+                    contact: document.getElementById('contactNo').value,
+                    email: document.getElementById('email').value,
+                    address: document.getElementById('address').value,
+                    city: document.getElementById('city').value,
+                    state: document.getElementById('state').value,
+                    pincode: document.getElementById('pincode').value
+                },
+                treatments: [],
+                payments: [],
+                discountType: document.getElementById('discountType').value,
+                discountValue: document.getElementById('discountValue').value,
+                taxRate: document.getElementById('taxRate').value,
+                notes: document.getElementById('notes').value,
+                savedAt: new Date().toISOString()
+            };
+
+            // Get treatments
+            document.querySelectorAll('#treatmentTable tr').forEach(row => {
+                invoiceData.treatments.push({
+                    name: row.querySelector('.treatment-name')?.value || '',
+                    qty: row.querySelector('.treatment-qty')?.value || 0,
+                    rate: row.querySelector('.treatment-rate')?.value || 0
+                });
+            });
+
+            // Get payments
+            document.querySelectorAll('#paymentTable tr').forEach(row => {
+                invoiceData.payments.push({
+                    method: row.querySelector('.payment-method')?.value || '',
+                    ref: row.querySelector('.payment-ref')?.value || '',
+                    date: row.querySelector('.payment-date')?.value || '',
+                    amount: row.querySelector('.payment-amount')?.value || 0
+                });
+            });
+
+            // Save to localStorage
+            const invoices = JSON.parse(localStorage.getItem('dentalInvoices') || '{}');
+            invoices[currentInvoiceId] = invoiceData;
+            localStorage.setItem('dentalInvoices', JSON.stringify(invoices));
+
+            showAlert('✅ Invoice saved successfully! Invoice #: ' + currentInvoiceId, 'success');
+        }
+
+        // Search Invoice
+        function searchInvoiceByNumber() {
+            const searchValue = document.getElementById('searchInvoice').value.trim();
+            if (!searchValue) {
+                showAlert('⚠️ Please enter an invoice number', 'error');
+                return;
+            }
+
+            const invoices = JSON.parse(localStorage.getItem('dentalInvoices') || '{}');
+            const invoice = invoices[searchValue];
+
+            if (invoice) {
+                loadInvoiceData(invoice);
+                showAlert('✅ Invoice loaded: ' + searchValue, 'success');
+                document.getElementById('searchInvoice').value = '';
+            } else {
+                showAlert('❌ Invoice not found: ' + searchValue, 'error');
+            }
+        }
+
+        // Load Invoice Data
+        function loadInvoiceData(data) {
+            currentInvoiceId = data.id;
+            document.getElementById('invoiceNumber').value = data.invoiceNumber;
+            document.getElementById('displayInvoiceNo').textContent = data.invoiceNumber;
+            document.getElementById('invoiceDate').value = data.date;
+            document.getElementById('doctorName').value = data.doctorName || '';
+            
+            // Load patient data
+            document.getElementById('patientId').value = data.patient.id || '';
+            document.getElementById('patientName').value = data.patient.name || '';
+            document.getElementById('patientAge').value = data.patient.age || '';
+            document.getElementById('guardianName').value = data.patient.guardian || '';
+            document.getElementById('contactNo').value = data.patient.contact || '';
+            document.getElementById('email').value = data.patient.email || '';
+            document.getElementById('address').value = data.patient.address || '';
+            document.getElementById('city').value = data.patient.city || '';
+            document.getElementById('state').value = data.patient.state || '';
+            document.getElementById('pincode').value = data.patient.pincode || '';
+
+            // Load treatments
+            const treatmentTable = document.getElementById('treatmentTable');
+            treatmentTable.innerHTML = '';
+            data.treatments.forEach((treatment, index) => {
+                if (index === 0) {
+                    const firstRow = treatmentTable.insertRow();
+                    firstRow.innerHTML = `
+                        <td style="text-align: center;">${index + 1}</td>
+                        <td><input type="text" value="${treatment.name}" class="treatment-name" style="width: 100%;"></td>
+                        <td style="text-align: center;"><input type="number" value="${treatment.qty}" min="1" class="treatment-qty" onchange="calculateAmount(this)" style="width: 60px; text-align: center;"></td>
+                        <td style="text-align: right;"><input type="number" value="${treatment.rate}" min="0" step="0.01" class="treatment-rate" onchange="calculateAmount(this)" style="width: 100px; text-align: right;"></td>
+                        <td style="text-align: right; font-weight: 600;" class="treatment-amount">₹0.00</td>
+                        <td style="text-align: center;" class="no-print"><button class="delete-btn" onclick="removeTreatment(this)">🗑️ Delete</button></td>
+                    `;
+                } else {
+                    addTreatment();
+                    const rows = treatmentTable.rows;
+                    const lastRow = rows[rows.length - 1];
+                    lastRow.querySelector('.treatment-name').value = treatment.name;
+                    lastRow.querySelector('.treatment-qty').value = treatment.qty;
+                    lastRow.querySelector('.treatment-rate').value = treatment.rate;
+                }
+            });
+
+            // Load payments
+            const paymentTable = document.getElementById('paymentTable');
+            paymentTable.innerHTML = '';
+            data.payments.forEach((payment, index) => {
+                if (index === 0) {
+                    const firstRow = paymentTable.insertRow();
+                    firstRow.innerHTML = `
+                        <td><select class="payment-method" style="width: 100%;"><option value="">Select Method</option><option value="Cash">Cash</option><option value="Card">Card</option><option value="UPI">UPI</option><option value="Bank Transfer">Bank Transfer</option><option value="Cheque">Cheque</option></select></td>
+                        <td><input type="text" value="${payment.ref}" placeholder="Reference ID" class="payment-ref" style="width: 100%;"></td>
+                        <td><input type="date" value="${payment.date}" class="payment-date" style="width: 100%;"></td>
+                        <td style="text-align: right;"><input type="number" value="${payment.amount}" min="0" step="0.01" class="payment-amount" onchange="calculateTotals()" style="width: 100px; text-align: right;"></td>
+                        <td style="text-align: center;" class="no-print"><button class="delete-btn" onclick="removePayment(this)">🗑️ Delete</button></td>
+                    `;
+                    firstRow.querySelector('.payment-method').value = payment.method;
+                } else {
+                    addPayment();
+                    const rows = paymentTable.rows;
+                    const lastRow = rows[rows.length - 1];
+                    lastRow.querySelector('.payment-method').value = payment.method;
+                    lastRow.querySelector('.payment-ref').value = payment.ref;
+                    lastRow.querySelector('.payment-date').value = payment.date;
+                    lastRow.querySelector('.payment-amount').value = payment.amount;
+                }
+            });
+
+            document.getElementById('discountType').value = data.discountType || 'none';
+            document.getElementById('discountValue').value = data.discountValue || 0;
+            document.getElementById('taxRate').value = data.taxRate || 18;
+            document.getElementById('notes').value = data.notes || '';
+
+            calculateTotals();
+        }
+
+        // Toggle Saved Invoices List
+        function toggleSavedInvoices() {
+            const list = document.getElementById('savedInvoicesList');
+            if (list.style.display === 'none') {
+                displaySavedInvoices();
+                list.style.display = 'block';
+            } else {
+                list.style.display = 'none';
+            }
+        }
+
+        // Display All Saved Invoices
+        function displaySavedInvoices() {
+            const invoices = JSON.parse(localStorage.getItem('dentalInvoices') || '{}');
+            const list = document.getElementById('savedInvoicesList');
+            list.innerHTML = '';
+
+            const invoiceArray = Object.values(invoices).sort((a, b) => new Date(b.savedAt) - new Date(a.savedAt));
+
+            if (invoiceArray.length === 0) {
+                list.innerHTML = '<div style="padding: 12px; text-align: center; color: #6b7280;">No saved invoices found</div>';
+                return;
+            }
+
+            invoiceArray.forEach(invoice => {
+                const item = document.createElement('div');
+                item.className = 'invoice-item';
+                item.innerHTML = `
+                    <div class="invoice-item-info">
+                        <strong>${invoice.invoiceNumber}</strong> - ${invoice.patient.name || 'No Name'} 
+                        <br><small style="color: #6b7280;">${new Date(invoice.date).toLocaleDateString()} | Saved: ${new Date(invoice.savedAt).toLocaleString()}</small>
+                    </div>
+                    <div class="invoice-item-actions">
+                        <button class="btn-load" onclick='loadInvoiceById("${invoice.id}")'>Load</button>
+                        <button class="btn-delete" onclick='deleteInvoice("${invoice.id}")'>Delete</button>
+                    </div>
+                `;
+                list.appendChild(item);
+            });
+        }
+
+        function loadInvoiceById(id) {
+            const invoices = JSON.parse(localStorage.getItem('dentalInvoices') || '{}');
+            const invoice = invoices[id];
+            if (invoice) {
+                loadInvoiceData(invoice);
+                showAlert('✅ Invoice loaded: ' + id, 'success');
+                document.getElementById('savedInvoicesList').style.display = 'none';
+            }
+        }
+
+        function deleteInvoice(id) {
+            if (confirm('Are you sure you want to delete this invoice?')) {
+                const invoices = JSON.parse(localStorage.getItem('dentalInvoices') || '{}');
+                delete invoices[id];
+                localStorage.setItem('dentalInvoices', JSON.stringify(invoices));
+                displaySavedInvoices();
+                showAlert('🗑️ Invoice deleted', 'info');
+            }
+        }
+
+        // New Invoice
+        function newInvoice() {
+            if (confirm('Create a new invoice? Unsaved changes will be lost.')) {
+                location.reload();
+            }
+        }
+
+        function calculateAmount(element) {
+            const row = element.closest('tr');
+            const qty = parseFloat(row.querySelector('.treatment-qty').value) || 0;
+            const rate = parseFloat(row.querySelector('.treatment-rate').value) || 0;
+            const amount = qty * rate;
+            row.querySelector('.treatment-amount').textContent = '₹' + amount.toFixed(2);
+            calculateTotals();
+        }
+
+        function calculateTotals() {
+            let subtotal = 0;
+            document.querySelectorAll('#treatmentTable tr').forEach(row => {
+                const qty = parseFloat(row.querySelector('.treatment-qty')?.value) || 0;
+                const rate = parseFloat(row.querySelector('.treatment-rate')?.value) || 0;
+                subtotal += qty * rate;
+            });
+
+            const discountType = document.getElementById('discountType').value;
+            const discountValue = parseFloat(document.getElementById('discountValue').value) || 0;
+            let discountAmount = 0;
+
+            if (discountType === 'percentage') {
+                discountAmount = (subtotal * discountValue) / 100;
+            } else if (discountType === 'fixed') {
+                discountAmount = discountValue;
+            }
+
+            const afterDiscount = subtotal - discountAmount;
+            const taxRate = parseFloat(document.getElementById('taxRate').value) || 0;
+            const taxAmount = (afterDiscount * taxRate) / 100;
+            const totalAmount = afterDiscount + taxAmount;
+
+            let paidAmount = 0;
+            document.querySelectorAll('#paymentTable tr').forEach(row => {
+                const amount = parseFloat(row.querySelector('.payment-amount')?.value) || 0;
+                paidAmount += amount;
+            });
+
+            const balance = totalAmount - paidAmount;
+
+            document.getElementById('subtotalAmount').textContent = '₹' + subtotal.toFixed(2);
+            document.getElementById('summarySubtotal').textContent = '₹' + subtotal.toFixed(2);
+            
+            const discountRow = document.getElementById('discountRow');
+            if (discountAmount > 0) {
+                discountRow.style.display = 'flex';
+                document.getElementById('summaryDiscount').textContent = '- ₹' + discountAmount.toFixed(2);
+            } else {
+                discountRow.style.display = 'none';
+            }
+
+            document.getElementById('summaryAfterDiscount').textContent = '₹' + afterDiscount.toFixed(2);
+            document.getElementById('summaryTaxRate').textContent = taxRate.toFixed(0);
+            document.getElementById('taxAmount').value = '₹' + taxAmount.toFixed(2);
+            document.getElementById('summaryTax').textContent = '₹' + taxAmount.toFixed(2);
+            document.getElementById('summaryTotal').textContent = '₹' + totalAmount.toFixed(2);
+            document.getElementById('summaryPaid').textContent = '₹' + paidAmount.toFixed(2);
+            
+            const balanceElement = document.getElementById('summaryBalance');
+            balanceElement.textContent = '₹' + balance.toFixed(2);
+            balanceElement.className = balance > 0 ? 'red-text' : 'green-text';
+
+            const statusElement = document.getElementById('paymentStatus');
+            if (balance <= 0) {
+                statusElement.textContent = 'PAID';
+                statusElement.className = 'status-badge status-paid';
+            } else if (paidAmount > 0) {
+                statusElement.textContent = 'PARTIAL';
+                statusElement.className = 'status-badge status-partial';
+            } else {
+                statusElement.textContent = 'PENDING';
+                statusElement.className = 'status-badge status-pending';
+            }
+
+            updateRowNumbers();
+        }
+
+        function updateRowNumbers() {
+            document.querySelectorAll('#treatmentTable tr').forEach((row, index) => {
+                const firstCell = row.querySelector('td:first-child');
+                if (firstCell) {
+                    firstCell.textContent = index + 1;
+                }
+            });
+        }
+
+        function addTreatment() {
+            const table = document.getElementById('treatmentTable');
+            const newRow = table.rows[0].cloneNode(true);
+            newRow.querySelector('.treatment-name').value = '';
+            newRow.querySelector('.treatment-qty').value = '1';
+            newRow.querySelector('.treatment-rate').value = '0';
+            newRow.querySelector('.treatment-amount').textContent = '₹0.00';
+            table.appendChild(newRow);
+            updateRowNumbers();
+        }
+
+        function removeTreatment(button) {
+            const table = document.getElementById('treatmentTable');
+            if (table.rows.length > 1) {
+                button.closest('tr').remove();
+                calculateTotals();
+            }
+        }
+
+        function addPayment() {
+            const table = document.getElementById('paymentTable');
+            const newRow = table.rows[0].cloneNode(true);
+            newRow.querySelector('.payment-method').value = '';
+            newRow.querySelector('.payment-ref').value = '';
+            newRow.querySelector('.payment-date').value = new Date().toISOString().split('T')[0];
+            newRow.querySelector('.payment-amount').value = '0';
+            table.appendChild(newRow);
+        }
+
+        function removePayment(button) {
+            const table = document.getElementById('paymentTable');
+            if (table.rows.length > 1) {
+                button.closest('tr').remove();
+                calculateTotals();
+            }
+        }
+    </script>
 </body>
 </html>
