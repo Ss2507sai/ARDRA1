@@ -1,0 +1,273 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2685.2">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+  </style>
+</head>
+<body>
+<p class="p1">&lt;!DOCTYPE html&gt;</p>
+<p class="p1">&lt;html lang="en"&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;Ardra Dental Clinic - Invoice System&lt;/title&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;style&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>* { margin: 0; padding: 0; box-sizing: border-box; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>body { font-family: Arial, sans-serif; background-color: #f9fafb; padding: 20px; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.container { max-width: 900px; margin: 0 auto; background: white; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-radius: 8px; overflow: hidden; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.header { background: linear-gradient(to right, #9333ea, #7e22ce); color: white; padding: 30px; display: flex; justify-content: space-between; align-items: start; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.header h1 { font-size: 28px; margin-bottom: 8px; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.header p { color: #e9d5ff; font-size: 14px; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.print-btn { background: white; color: #9333ea; padding: 10px 20px; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.print-btn:hover { background: #faf5ff; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.content { padding: 30px; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.section { margin-bottom: 30px; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.section-title { font-size: 20px; font-weight: bold; color: #1f2937; border-bottom: 3px solid #9333ea; padding-bottom: 8px; margin-bottom: 20px; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.form-group { margin-bottom: 16px; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.form-group.full { grid-column: span 2; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>label { display: block; font-size: 14px; font-weight: 500; color: #374151; margin-bottom: 4px; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>input, select { width: 100%; padding: 10px 12px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 14px; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>input:focus, select:focus { outline: none; border-color: #9333ea; box-shadow: 0 0 0 3px rgba(147, 51, 234, 0.1); }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>table { width: 100%; border-collapse: collapse; margin-top: 16px; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>thead { background-color: #f3f4f6; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>th { padding: 12px; text-align: left; font-size: 14px; font-weight: 600; color: #374151; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>th.center { text-align: center; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>th.right { text-align: right; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>td { padding: 12px; border-bottom: 1px solid #e5e7eb; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>td input, td select { padding: 6px 8px; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.add-btn { background: #9333ea; color: white; padding: 8px 16px; border: none; border-radius: 6px; cursor: pointer; font-size: 14px; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.add-btn:hover { background: #7e22ce; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.delete-btn { background: none; border: none; color: #dc2626; cursor: pointer; padding: 4px; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.delete-btn:hover { color: #991b1b; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.total-row { background: #f9fafb; font-weight: bold; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.total-row td { padding: 16px 12px; font-size: 16px; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.purple-text { color: #9333ea; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.summary { background: #f9fafb; padding: 20px; border-radius: 8px; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.summary-row { display: flex; justify-content: space-between; padding: 8px 0; font-size: 16px; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.summary-row.total { border-top: 2px solid #d1d5db; padding-top: 12px; margin-top: 8px; font-size: 18px; font-weight: bold; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.green-text { color: #16a34a; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.red-text { color: #dc2626; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.footer { margin-top: 40px; padding-top: 24px; border-top: 1px solid #e5e7eb; text-align: center; color: #6b7280; font-size: 14px; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>@media print { body { background: white; padding: 0; } .no-print { display: none !important; } .container { box-shadow: none; } input, select { border: none !important; padding: 2px 0 !important; } }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p1">&lt;body&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="container"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="header"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;h1&gt;ARDRA DENTAL CLINIC&lt;/h1&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;p&gt;https://ardradentalclinics.com/&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;button class="print-btn no-print" onclick="window.print()"&gt;Print Invoice&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="content"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="section"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="grid-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="form-group"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;label&gt;Invoice Number&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;input type="text" id="invoiceNumber"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="form-group"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;label&gt;Date&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;input type="date" id="invoiceDate"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="section"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;h2 class="section-title"&gt;Patient Details&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="grid-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="form-group"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;label&gt;Patient Name&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;input type="text" id="patientName"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="form-group"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;label&gt;Guardian Name&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;input type="text" id="guardianName"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="form-group"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;label&gt;Contact Number&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;input type="tel" id="contactNo"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="form-group"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;label&gt;Email&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;input type="email" id="email"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="form-group full"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;label&gt;Address&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;input type="text" id="address"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="form-group"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;label&gt;City&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;input type="text" id="city"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="form-group"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;label&gt;State&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;input type="text" id="state"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="section"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="section-header"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;h2 class="section-title" style="margin: 0;"&gt;Treatment Details&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;button class="add-btn no-print" onclick="addTreatment()"&gt;Add Treatment&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;table&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;thead&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;tr&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;th&gt;Treatment&lt;/th&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;th class="center"&gt;Quantity&lt;/th&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;th class="right"&gt;Rate (₹)&lt;/th&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;th class="right"&gt;Amount (₹)&lt;/th&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;th class="center no-print"&gt;Action&lt;/th&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/tr&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/thead&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;tbody id="treatmentTable"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;tr&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;td&gt;&lt;input type="text" placeholder="e.g., Root Canal" class="treatment-name" style="width: 100%;"&gt;&lt;/td&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;td style="text-align: center;"&gt;&lt;input type="number" value="1" min="1" class="treatment-qty" onchange="calculateAmount(this)" style="width: 80px; text-align: center;"&gt;&lt;/td&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;td style="text-align: right;"&gt;&lt;input type="number" value="0" min="0" class="treatment-rate" onchange="calculateAmount(this)" style="width: 100px; text-align: right;"&gt;&lt;/td&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;td style="text-align: right; font-weight: 600;" class="treatment-amount"&gt;₹0&lt;/td&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;td style="text-align: center;" class="no-print"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;button class="delete-btn" onclick="removeTreatment(this)"&gt;Delete&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/td&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/tr&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/tbody&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;tfoot&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;tr class="total-row"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;td colspan="3" style="text-align: right;"&gt;Total Amount:&lt;/td&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;td style="text-align: right;" class="purple-text" id="totalAmount"&gt;₹0&lt;/td&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;td class="no-print"&gt;&lt;/td&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/tr&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/tfoot&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/table&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="section"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="section-header"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;h2 class="section-title" style="margin: 0;"&gt;Payment Details&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;button class="add-btn no-print" onclick="addPayment()"&gt;Add Payment&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;table&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;thead&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;tr&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;th&gt;Payment Method&lt;/th&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;th&gt;Reference ID&lt;/th&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;th class="right"&gt;Amount (₹)&lt;/th&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;th class="center no-print"&gt;Action&lt;/th&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/tr&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/thead&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;tbody id="paymentTable"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;tr&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;td&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;select class="payment-method" style="width: 100%;"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;option value=""&gt;Select Method&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;option value="Cash"&gt;Cash&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;option value="Card"&gt;Card&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;option value="UPI"&gt;UPI&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;option value="Bank Transfer"&gt;Bank Transfer&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;option value="Cheque"&gt;Cheque&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/select&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/td&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;td&gt;&lt;input type="text" placeholder="Reference ID" class="payment-ref" style="width: 100%;"&gt;&lt;/td&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;td style="text-align: right;"&gt;&lt;input type="number" value="0" min="0" class="payment-amount" onchange="calculateTotals()" style="width: 100px; text-align: right;"&gt;&lt;/td&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;td style="text-align: center;" class="no-print"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;button class="delete-btn" onclick="removePayment(this)"&gt;Delete&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/td&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/tr&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/tbody&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/table&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="summary"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="summary-row"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span style="font-weight: 600;"&gt;Total Amount:&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span style="font-weight: bold;" id="summaryTotal"&gt;₹0&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="summary-row"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span style="font-weight: 600;"&gt;Amount Paid:&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span style="font-weight: bold;" class="green-text" id="summaryPaid"&gt;₹0&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="summary-row total"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span&gt;Balance Due:&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span id="summaryBalance"&gt;₹0&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="footer"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;p&gt;Thank you for choosing Ardra Dental Clinic!&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;p style="margin-top: 8px;"&gt;For queries: https://ardradentalclinics.com/&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>document.getElementById('invoiceNumber').value = 'INV-' + Date.now();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>document.getElementById('invoiceDate').value = new Date().toISOString().split('T')[0];</p>
+<p class="p1"><span class="Apple-converted-space">        </span>function calculateAmount(element) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const row = element.closest('tr');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const qty = parseFloat(row.querySelector('.treatment-qty').value) || 0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const rate = parseFloat(row.querySelector('.treatment-rate').value) || 0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const amount = qty * rate;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>row.querySelector('.treatment-amount').textContent = '₹' + amount.toLocaleString('en-IN');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>calculateTotals();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>function calculateTotals() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>let total = 0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.querySelectorAll('#treatmentTable tr').forEach(row =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const qty = parseFloat(row.querySelector('.treatment-qty')?.value) || 0;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const rate = parseFloat(row.querySelector('.treatment-rate')?.value) || 0;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>total += qty * rate;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>});</p>
+<p class="p1"><span class="Apple-converted-space">            </span>let paid = 0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.querySelectorAll('#paymentTable tr').forEach(row =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const amount = parseFloat(row.querySelector('.payment-amount')?.value) || 0;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>paid += amount;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>});</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const balance = total - paid;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('totalAmount').textContent = '₹' + total.toLocaleString('en-IN');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('summaryTotal').textContent = '₹' + total.toLocaleString('en-IN');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('summaryPaid').textContent = '₹' + paid.toLocaleString('en-IN');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const balanceElement = document.getElementById('summaryBalance');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>balanceElement.textContent = '₹' + balance.toLocaleString('en-IN');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>balanceElement.className = balance &gt; 0 ? 'red-text' : 'green-text';</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>function addTreatment() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const table = document.getElementById('treatmentTable');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const newRow = table.rows[0].cloneNode(true);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>newRow.querySelector('.treatment-name').value = '';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>newRow.querySelector('.treatment-qty').value = '1';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>newRow.querySelector('.treatment-rate').value = '0';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>newRow.querySelector('.treatment-amount').textContent = '₹0';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>table.appendChild(newRow);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>function removeTreatment(button) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const table = document.getElementById('treatmentTable');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (table.rows.length &gt; 1) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>button.closest('tr').remove();</p>
+<p class="p1"><span class="Apple-converted-space">                </span>calculateTotals();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>function addPayment() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const table = document.getElementById('paymentTable');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const newRow = table.rows[0].cloneNode(true);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>newRow.querySelector('.payment-method').value = '';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>newRow.querySelector('.payment-ref').value = '';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>newRow.querySelector('.payment-amount').value = '0';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>table.appendChild(newRow);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>function removePayment(button) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const table = document.getElementById('paymentTable');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (table.rows.length &gt; 1) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>button.closest('tr').remove();</p>
+<p class="p1"><span class="Apple-converted-space">                </span>calculateTotals();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
+</body>
+</html>
